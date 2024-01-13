@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
+using System.Data.Entity.Migrations.Model;
 
 namespace week04
 {
@@ -27,6 +28,7 @@ namespace week04
             InitializeComponent();
             LoadData();
             CreateExcel();
+            CreateTable();
         }
     
         private void LoadData()
@@ -58,6 +60,27 @@ namespace week04
                 xlApp.Quit();
                 xlWB = null;
                 xlApp = null;
+            }
+        }
+
+        private void CreateTable()
+        {
+            string[] headers = new string[]
+            {
+               "Kód",
+               "Eladó",
+               "Oldal",
+               "Kerület",
+               "Lift",
+               "Szobák száma",
+               "Alapterület (m2)",
+               "Ár (mFt)",
+               "Négyzetméter ár (Ft/m2)"
+            };
+
+            for (int i = 0; i < headers.Length; i++)
+            {
+                xlSheet.Cells[1, 1] = headers[0];
             }
         }
     }
