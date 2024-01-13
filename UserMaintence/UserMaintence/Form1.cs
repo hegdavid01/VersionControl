@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +19,10 @@ namespace UserMaintence
         public Form1()
         {
             InitializeComponent();
-            label1.Text = Resource1.LastName; 
-            label2.Text = Resource1.FirstName; 
+
+            button2.Text = Resource1.SaveToFileButtonText;
+
+            label1.Text = Resource1.FullName;  
             button1.Text = Resource1.Add;
 
             listBox1.DataSource = users;
@@ -28,10 +31,35 @@ namespace UserMaintence
 
             var u = new User()
             {
-                LastName = textBox1.Text,
-                FirstName = textBox2.Text
+                FullName = textBox1.Text,
             };
             users.Add(u);
+        }
+
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Title = "Fájl mentése";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter writer = new StreamWriter(saveFileDialog.FileName))
+                    {
+                        foreach (var user in users) 
+                        {
+                            writer.WriteLine("ID: {user.ID}, FullName: {user.FullName}");
+                        }
+                    MessageBox.Show("Adatok sikeresen mentve a fájlba.");
+                    }
+                }
+
+
+            }
+            
+            
         }
     }
 }
