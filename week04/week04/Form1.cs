@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.Data.Entity.Migrations.Model;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace week04
 {
@@ -81,6 +82,23 @@ namespace week04
             for (int i = 0; i < headers.Length; i++)
             {
                 xlSheet.Cells[1, 1] = headers[0];
+            }
+
+            object[,] values = new object[Flats.Count, headers.Length];
+
+            int sor = 0;
+            foreach (Flat f in Flats)
+            {
+                values[sor - 2, 0] = flat.Code;
+                values[sor - 2, 1] = flat.Seller;
+                values[sor - 2, 2] = flat.Side;
+                values[sor - 2, 3] = flat.District;
+                values[sor - 2, 4] = flat.Lift;
+                values[sor - 2, 5] = flat.Rooms;
+                values[sor - 2, 6] = flat.Area;
+                values[sor - 2, 7] = flat.Price;
+                values[sor - 2, 8] = flat.PricePerSquareMeter;
+                sor++;
             }
         }
     }
