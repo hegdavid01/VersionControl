@@ -60,6 +60,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Flat.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Flat.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Flat.tt</DependentUpon>
+    </Compile>
     <Compile Include="Flat.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,6 +112,12 @@
     <Content Include="Flat.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Flat.Context.cs</LastGenOutput>
+      <DependentUpon>Flat.edmx</DependentUpon>
+    </Content>
+    <Content Include="Flat.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Flat.edmx</DependentUpon>
+      <LastGenOutput>Flat.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
