@@ -89,17 +89,47 @@ namespace week04
             int sor = 0;
             foreach (Flat f in Flats)
             {
-                values[sor - 2, 0] = flat.Code;
-                values[sor - 2, 1] = flat.Seller;
-                values[sor - 2, 2] = flat.Side;
-                values[sor - 2, 3] = flat.District;
-                values[sor - 2, 4] = flat.Lift;
-                values[sor - 2, 5] = flat.Rooms;
-                values[sor - 2, 6] = flat.Area;
-                values[sor - 2, 7] = flat.Price;
-                values[sor - 2, 8] = flat.PricePerSquareMeter;
+                values[sor - 2, 0] = f.Code;
+                values[sor - 2, 1] = f.Seller;
+                values[sor - 2, 2] = f.Side;
+                values[sor - 2, 3] = f.District;
+                values[sor - 2, 4] = f.Lift;
+                values[sor - 2, 5] = f.Rooms;
+                values[sor - 2, 6] = f.Area;
+                values[sor - 2, 7] = f.Price;
+                values[sor - 2, 8] = f.PricePerSquareMeter;
                 sor++;
             }
+
+            string GetCell(int x, int y)
+            {
+                string ExcelCoordinate = "";
+                int dividend = y;
+                int modulo;
+
+                while (dividend > 0)
+                {
+                    modulo = (dividend - 1) % 26;
+                    ExcelCoordinate = Convert.ToChar(65 + modulo).ToString() + ExcelCoordinate;
+                    dividend = (int)((dividend - modulo) / 26);
+                }
+                ExcelCoordinate += x.ToString();
+
+                return ExcelCoordinate;
+            }
+
+            xlSheet.get_Range(
+            GetCell(2, 1),
+            GetCell(1 + values.GetLength(0), values.GetLength(1))).Value2 = values;
+
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
         }
     }
 
