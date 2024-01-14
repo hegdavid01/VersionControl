@@ -24,6 +24,7 @@ namespace week05
             Controls.Add(dataGridView1);
             dataGridView1.DataSource = Rates;
             XML();
+            Diagram();
         }
 
         private void GetExchangeRates()
@@ -63,6 +64,11 @@ namespace week05
                     rate.Value = value / unit;
                 }
             }
+        }
+
+        private void Diagram()
+        {
+            chartRateData.DataSource = Rates;
         }
 
 
