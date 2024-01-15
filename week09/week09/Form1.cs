@@ -134,6 +134,18 @@ namespace week09
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
+            NumberOfMales.Clear();
+            NumberOfFeamles.Clear();
+            Population = GetPopulation(textBox1.Text);
+            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
+            DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
+            Simulation();
+            DisplayResults();
+        }
     }
 }
 
