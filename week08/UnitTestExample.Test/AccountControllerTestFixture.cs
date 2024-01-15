@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,5 +32,30 @@ namespace UnitTestExample.Test
            TestCase("Asdf1234", true),
            ]
 
+        public void TestValidatePassword(string password, bool expectedResult)
+        {
+            var accountController = new AccountController();
+            var actualResult = accountController.ValidatePassword(password);
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        Test,
+        TestCase("irf@uni-corvinus.hu", "Asdf1234"),
+        TestCase("irf@uni-corvinus.hu", "Asdfgh123456"),
+        ]
+        public void TestRegisterHappyPath(string email, string password)
+        {
+            var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict);
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
+            var accountController = new AccountController();
+            accountController.AccountManager = accountServiceMock.Object;
+            var actualResult = accountController.Register(email, password);
+            Assert.AreEqual(email, actualResult.Email);
+            Assert.AreEqual(password, actualResult.Password);
+            Assert.AreNotEqual(Guid.Empty, actualResult.ID);
+            accountServiceMock.Verify(m => m.CreateAccount(actualResult), Times.Once);
+        }
     }   
 }
