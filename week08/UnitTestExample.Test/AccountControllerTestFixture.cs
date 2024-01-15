@@ -57,5 +57,28 @@ namespace UnitTestExample.Test
             Assert.AreNotEqual(Guid.Empty, actualResult.ID);
             accountServiceMock.Verify(m => m.CreateAccount(actualResult), Times.Once);
         }
+
+        [
+        Test,
+        TestCase("irf@uni-corvinus", "Asdf1234"),
+        TestCase("irf.uni-corvinus.hu", "Asdf1234"),
+        TestCase("irf@uni-corvinus.hu", "asdf1234"),
+        TestCase("irf@uni-corvinus.hu", "ASDF1234"),
+        TestCase("irf@uni-corvinus.hu", "asdfASDF"),
+        TestCase("irf@uni-corvinus.hu", "As1234"),
+        ]
+        public void TestRegisterValidateException(string email, string password)
+        {
+            var accountController = new AccountController();
+            try
+            {
+                var actualResult = accountController.Register(email, password);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOf<ValidationException>(ex);
+            }
+        }
     }   
 }
