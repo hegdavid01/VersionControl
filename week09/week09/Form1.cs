@@ -18,6 +18,8 @@ namespace week09
         List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
         List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
         Random rng = new Random(1234);
+        List<int> NumberOfMales = new List<int>();
+        List<int> NumberOfFeamles = new List<int>();
 
         public Form1()
         {
@@ -145,6 +147,16 @@ namespace week09
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
             Simulation();
             DisplayResults();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            textBox1.Text = ofd.FileName;
         }
     }
 }
