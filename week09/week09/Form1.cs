@@ -158,6 +158,14 @@ namespace week09
             }
             textBox1.Text = ofd.FileName;
         }
+
+        private void DisplayResults()
+        {
+            for (int i = 0; i < numericUpDown1.Value - 2005; i++)
+            {
+                richTextBox1.Text = String.Format("Szimulációs év: {0}\n\tFiúk: {1}\n\tLányok: {2}\n\n", i + 2005, NumberOfMales[i], NumberOfFeamles[i]);
+            }
+        }
     }
 }
 
