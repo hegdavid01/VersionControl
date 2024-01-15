@@ -19,10 +19,12 @@ namespace week10
         int populationSize = 100;
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
-
+        int generation = 1;
+        Brain winnerBrain = null;
         public Form1()
         {
             InitializeComponent();
+            Dock = DockStyle.Fill;
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
             gc.GameOver += Gc_GameOver;
@@ -32,7 +34,6 @@ namespace week10
             }
             gc.Start();
         }
-
         private void Gc_GameOver(object sender)
         {
             generation++;
